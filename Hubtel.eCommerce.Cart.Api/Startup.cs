@@ -59,12 +59,7 @@ namespace Hubtel.eCommerce.Cart.Api
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
-            _ = app.UseSwaggerUI(c =>
-              {
-                  c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hubtel eCommerce");
-
-                  c.RoutePrefix = "";
-              });
+            _ = app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 

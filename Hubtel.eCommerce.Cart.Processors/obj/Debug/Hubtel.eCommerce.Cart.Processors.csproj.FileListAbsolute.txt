@@ -1,0 +1,6 @@
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Processors\bin\Debug\Hubtel.eCommerce.Cart.Processors.dll
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Processors\bin\Debug\Hubtel.eCommerce.Cart.Processors.pdb
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Processors\obj\Debug\Hubtel.eCommerce.Cart.Processors.csproj.AssemblyReference.cache
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Processors\obj\Debug\Hubtel.eCommerce.Cart.Processors.csproj.CoreCompileInputs.cache
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Processors\obj\Debug\Hubtel.eCommerce.Cart.Processors.dll
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Processors\obj\Debug\Hubtel.eCommerce.Cart.Processors.pdb
