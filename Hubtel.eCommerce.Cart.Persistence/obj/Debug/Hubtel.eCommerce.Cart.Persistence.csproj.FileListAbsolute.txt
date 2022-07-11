@@ -4,3 +4,6 @@ C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.C
 C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Persistence\obj\Debug\Hubtel.eCommerce.Cart.Persistence.csproj.CoreCompileInputs.cache
 C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Persistence\obj\Debug\Hubtel.eCommerce.Cart.Persistence.dll
 C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Persistence\obj\Debug\Hubtel.eCommerce.Cart.Persistence.pdb
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Persistence\bin\Debug\Hubtel.eCommerce.Cart.Domain.dll
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Persistence\bin\Debug\Hubtel.eCommerce.Cart.Domain.pdb
+C:\Users\Hp\Videos\Projects\Examples\FA\Hubtel.eCommerce.Cart\Hubtel.eCommerce.Cart.Persistence\obj\Debug\Hubtel.eCommerce.Cart.Persistence.csproj.CopyComplete

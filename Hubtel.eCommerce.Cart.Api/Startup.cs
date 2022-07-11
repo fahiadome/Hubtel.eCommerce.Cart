@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence;
 using Microsoft.OpenApi.Models;
 
 namespace Hubtel.eCommerce.Cart.Api
@@ -26,6 +27,11 @@ namespace Hubtel.eCommerce.Cart.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddPersistence(Configuration);
+            services.AddRepository();
+
+            services.AddCors();
+
             services.AddControllers();
 
 
@@ -59,11 +65,22 @@ namespace Hubtel.eCommerce.Cart.Api
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
-            _ = app.UseSwaggerUI();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+
+            app.UseMiddleware<JwtMiddleware>();
+
+            app.UseEndpoints(x => x.MapControllers());
+
 
             app.UseAuthorization();
 
