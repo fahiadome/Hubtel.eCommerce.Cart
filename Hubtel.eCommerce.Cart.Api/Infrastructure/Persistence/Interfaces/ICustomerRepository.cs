@@ -2,7 +2,7 @@
 
 namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Interfaces
 {
-    public interface ICustomerRepository : IRepository<Item>
+    public interface ICustomerRepository : IRepository<Customer>
     {
     }
 }

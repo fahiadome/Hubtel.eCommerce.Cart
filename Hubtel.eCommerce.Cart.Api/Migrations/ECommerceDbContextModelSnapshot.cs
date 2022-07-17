@@ -37,11 +37,11 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("ItemId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("ItemId1")
+                    b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -56,7 +56,7 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("ItemId1");
+                    b.HasIndex("ItemId");
 
                     b.ToTable("Carts");
                 });
@@ -85,34 +85,31 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                     b.Property<string>("AddressLine4")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("AddressType")
+                        .HasColumnType("int");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ItemVendorId")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ItemVendorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OtherEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OtherPhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PrimaryEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PrimaryPhoneNumber")
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
@@ -128,6 +125,26 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                     b.HasIndex("ItemVendorId");
 
                     b.ToTable("Addresses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d02bc9c4-ae75-465d-bb9d-faf637b0d913"),
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AddressLine1 = "P.O. Box 22",
+                            AddressLine2 = "Lowcost",
+                            AddressLine3 = "",
+                            AddressLine4 = "",
+                            AddressType = 1,
+                            City = "Tarkwa",
+                            Country = "Ghana",
+                            CustomerId = new Guid("9de9254d-c3dc-4af2-810c-e924682dc173"),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "abc@abc.com",
+                            PhoneNumber = "0244444444",
+                            State = "Western",
+                            ZipCode = "233"
+                        });
                 });
 
             modelBuilder.Entity("Hubtel.eCommerce.Cart.Domain.Entities.Customer", b =>
@@ -165,6 +182,18 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9de9254d-c3dc-4af2-810c-e924682dc173"),
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Franklin",
+                            LastName = "Kwofie",
+                            OtherName = "",
+                            UserId = new Guid("d67e5380-a832-4f3d-ad42-5cba564f7ad8")
+                        });
                 });
 
             modelBuilder.Entity("Hubtel.eCommerce.Cart.Domain.Entities.Item", b =>
@@ -218,6 +247,22 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                     b.HasIndex("VendorId");
 
                     b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("dbbd1c85-3aeb-4e45-8f63-739394008671"),
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "",
+                            ItemCategoryId = new Guid("27c3ccd2-90bf-4a36-a424-b0d47feb257f"),
+                            ItemName = "Item one",
+                            Quantity = 30,
+                            SKU = "sku101",
+                            Status = 1,
+                            UnitPrice = 12m,
+                            VendorId = new Guid("f2562115-0b80-479b-94fb-71d03319d574")
+                        });
                 });
 
             modelBuilder.Entity("Hubtel.eCommerce.Cart.Domain.Entities.ItemCategory", b =>
@@ -252,6 +297,26 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ItemCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f2562115-0b80-479b-94fb-71d03319d574"),
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "CAT101",
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Some description",
+                            Name = "Cat one"
+                        },
+                        new
+                        {
+                            Id = new Guid("27c3ccd2-90bf-4a36-a424-b0d47feb257f"),
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "CAT102",
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Some other description",
+                            Name = "Cat two"
+                        });
                 });
 
             modelBuilder.Entity("Hubtel.eCommerce.Cart.Domain.Entities.ItemVendor", b =>
@@ -267,6 +332,7 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateModified")
@@ -285,6 +351,26 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ItemVendors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f2562115-0b80-479b-94fb-71d03319d574"),
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "IT101",
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Some description",
+                            Name = "Vendor one"
+                        },
+                        new
+                        {
+                            Id = new Guid("bf87fbbb-a950-4c75-b47d-93712d6d3204"),
+                            AddedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "IT102",
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Some other description",
+                            Name = "Vendor two"
+                        });
                 });
 
             modelBuilder.Entity("Hubtel.eCommerce.Cart.Domain.Entities.User", b =>
@@ -296,10 +382,12 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -311,10 +399,12 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -332,11 +422,151 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("Hubtel.eCommerce.Cart.Cart", b =>
@@ -349,22 +579,20 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
 
                     b.HasOne("Hubtel.eCommerce.Cart.Domain.Entities.Item", "Item")
                         .WithMany()
-                        .HasForeignKey("ItemId1");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Hubtel.eCommerce.Cart.Domain.Entities.Address", b =>
                 {
                     b.HasOne("Hubtel.eCommerce.Cart.Domain.Entities.Customer", "Customer")
                         .WithMany("Addresses")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Hubtel.eCommerce.Cart.Domain.Entities.ItemVendor", "ItemVendor")
                         .WithMany("Addresses")
-                        .HasForeignKey("ItemVendorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ItemVendorId");
                 });
 
             modelBuilder.Entity("Hubtel.eCommerce.Cart.Domain.Entities.Item", b =>
@@ -378,6 +606,57 @@ namespace Hubtel.eCommerce.Cart.Api.Migrations
                     b.HasOne("Hubtel.eCommerce.Cart.Domain.Entities.ItemVendor", "Vendor")
                         .WithMany("Items")
                         .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Hubtel.eCommerce.Cart.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Hubtel.eCommerce.Cart.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hubtel.eCommerce.Cart.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Hubtel.eCommerce.Cart.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

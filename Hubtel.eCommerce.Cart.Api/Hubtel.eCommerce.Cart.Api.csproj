@@ -5,14 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20220711003709_Initial-Create.cs" />
-    <Compile Remove="Migrations\20220711003709_Initial-Create.Designer.cs" />
-    <Compile Remove="Migrations\20220711004138_Initial-Create.cs" />
-    <Compile Remove="Migrations\20220711004138_Initial-Create.Designer.cs" />
+    <Compile Remove="Infrastructure\Helpers\AppSettings.cs" />
+    <Compile Remove="Infrastructure\Helpers\AuthorizeAttribute.cs" />
+    <Compile Remove="Infrastructure\Helpers\JwtMiddleWare.cs" />
+    <Compile Remove="Infrastructure\Persistence\Interfaces\IAccountService.cs" />
+    <Compile Remove="Infrastructure\Persistence\Repositories\AccountService.cs" />
   </ItemGroup>
 
   <ItemGroup>
+          <PackageReference Include="Elasticsearch.Net" Version="7.17.4" />
+          <PackageReference Include="FluentValidation" Version="11.1.0" />
+          <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+          <PackageReference Include="NEST" Version="7.17.4" />
+          <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+          <PackageReference Include="Serilog" Version="2.11.0" />
+          <PackageReference Include="Serilog.AspNetCore" Version="3.1.0" />
+          <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+          <PackageReference Include="Sieve" Version="2.5.5" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />	  
+	  	  <PackageReference Include="AutoMapper" Version="11.0.1" />
+	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
 	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
 	  <PackageReference Include="EntityFramework" Version="3.1.0" />
     <PackageReference Include="MediatR" Version="10.0.1" />
@@ -39,7 +53,6 @@
   <ItemGroup>
     <Folder Include="Core\Application\Features\Item\Commands\" />
     <Folder Include="Core\Application\Features\Item\Queries\" />
-    <Folder Include="Core\Processors\" />
   </ItemGroup>
 
 

@@ -9,9 +9,18 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Hubtel.eCommerce.Cart.Api.Infrastructure.Models;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence;
+using Hubtel.eCommerce.Cart.Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Nest;
+using Sieve.Services;
 
 namespace Hubtel.eCommerce.Cart.Api
 {
@@ -27,10 +36,41 @@ namespace Hubtel.eCommerce.Cart.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ECommerceDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JWT:ValidAudience"],
+                        ValidIssuer = Configuration["JWT:ValidIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                    };
+                });
+
+            var settings = new ConnectionSettings()
+                .DefaultMappingFor<CartViewModel>(a=>a.IndexName("CartViewModel"));
+
+            services.AddSingleton<IElasticClient>(new ElasticClient(settings));
+
             services.AddPersistence(Configuration);
             services.AddRepository();
-
+            services.AddProcessors();
             services.AddCors();
+
+            services.AddMediatR(typeof(Startup));
 
             services.AddControllers();
 
@@ -63,26 +103,19 @@ namespace Hubtel.eCommerce.Cart.Api
 
             app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
-
-            app.UseMiddleware<JwtMiddleware>();
-
-            app.UseEndpoints(x => x.MapControllers());
-
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

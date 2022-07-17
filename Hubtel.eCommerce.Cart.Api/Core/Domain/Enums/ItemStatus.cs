@@ -8,4 +8,11 @@
         Deleted
 
     }
+
+    public enum AddressType
+    {
+        Primary = 1,
+        Secondary,
+        Others
+    }
 }

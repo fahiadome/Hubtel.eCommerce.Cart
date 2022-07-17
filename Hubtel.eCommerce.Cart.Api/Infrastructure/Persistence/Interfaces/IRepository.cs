@@ -20,7 +20,8 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Interfaces
         Task DeleteAsync(IEnumerable<T> entities, bool autoCommit = true);
         IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties);
         Task<T> GetAsync(int id);
-        Task<List<T>> GetAllAsync();
+        Task<T> GetAsync(Guid id);
+       Task<List<T>> GetAllAsync();
         //Task<PaginatedList<T>> GetPage(PaginatedCommand paginated, CancellationToken cancellationToken);
         //Task<PaginatedList<T>> GetPage(PaginatedCommand paginated, IQueryable<T> query, CancellationToken cancellationToken);
         Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken, bool autoCommit = true);

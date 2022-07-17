@@ -49,11 +49,16 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
 
 			return queryable;
 		}
-		public async Task<T> GetAsync(int id)
-		{
-			var keyProperty = _context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties[0];
-			return await GetBaseQuery().FirstOrDefaultAsync(e => EF.Property<int>(e, keyProperty.Name) == id);
-		}
+        public async Task<T> GetAsync(int id)
+        {
+            var keyProperty = _context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties[0];
+            return await GetBaseQuery().FirstOrDefaultAsync(e => EF.Property<int>(e, keyProperty.Name) == id);
+        }
+        public async Task<T> GetAsync(Guid id)
+        {
+            var keyProperty = _context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties[0];
+            return await GetBaseQuery().FirstOrDefaultAsync(e => EF.Property<Guid>(e, keyProperty.Name) == id);
+        }
 
 		public async Task<List<T>> GetAllAsync()
 		{
@@ -174,6 +179,7 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
 
 				foreach (var entity in entities)
 					await Entities.AddAsync(entity);
+
 				if (autoCommit)
 					await _context.SaveChangesAsync();
 			}
@@ -226,6 +232,7 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
 					throw new ArgumentNullException("entity");
 
 				Entities.Update(entity);
+
 				if (autoCommit)
 					await _context.SaveChangesAsync();
 			}
@@ -266,34 +273,34 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
 				//Debug.WriteLine(fail.Message, fail);
 				throw fail;
 			}
-			catch (Exception ex) { throw ex; }
+			catch (Exception ex) { throw ex;}
 		}
 
-		public async Task DeleteAsync(T entity, CancellationToken cancellationToken, bool autoCommit = true)
-		{
-			try
-			{
-				if (entity == null)
-					throw new ArgumentNullException("entity");
+        public async Task DeleteAsync(T entity, CancellationToken cancellationToken, bool autoCommit = true)
+        {
+            try
+            {
+                if (entity == null)
+                    throw new ArgumentNullException("entity");
 
-				Entities.Remove(entity);
-				if (autoCommit)
-					await _context.SaveChangesAsync(cancellationToken);
-			}
-			catch (DbEntityValidationException dbEx)
-			{
-				var msg = string.Empty;
+                Entities.Remove(entity);
+                if (autoCommit)
+                    await _context.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                var msg = string.Empty;
 
-				foreach (var validationErrors in dbEx.EntityValidationErrors)
-					foreach (var validationError in validationErrors.ValidationErrors)
-						msg += Environment.NewLine + string.Format("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                foreach (var validationError in validationErrors.ValidationErrors)
+                    msg += Environment.NewLine + string.Format("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
 
-				var fail = new Exception(msg, dbEx);
-				//Debug.WriteLine(fail.Message, fail);
-				throw fail;
-			}
-			catch (Exception ex) { throw ex; }
-		}
+                var fail = new Exception(msg, dbEx);
+                //Debug.WriteLine(fail.Message, fail);
+                throw fail;
+            }
+            catch (Exception ex) { throw ex; }
+        }
 		public async Task DeleteAsync(T entity, bool autoCommit = true)
 		{
 			try

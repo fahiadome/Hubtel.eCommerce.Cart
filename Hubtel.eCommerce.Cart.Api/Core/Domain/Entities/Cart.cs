@@ -11,8 +11,7 @@ namespace Hubtel.eCommerce.Cart
     public class Cart : EntityBase
     {
         [Required]
-        public long ItemId { get; set; }
-
+        public Guid ItemId { get; set; }
         public Item Item { get; set; }
 
         public Guid CustomerId { get; set; }
@@ -22,9 +21,25 @@ namespace Hubtel.eCommerce.Cart
         public int Quantity { get; set; }
 
         [Column(TypeName = "decimal(18,4)"), Required]
-
         public decimal UnitPrice { get; set; }
+
+        public string ItemName { get; set; }
+
         public decimal Amount => Quantity * UnitPrice;
+
+        
+
+        public void  IncreaseQuantityBy(int quantity)
+        {
+            Quantity += quantity;
+            
+        }
+        public void WithCustomerId(Guid customerId)
+        {
+            CustomerId = customerId;
+        }
+
+
     }
 
 }
