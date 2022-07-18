@@ -97,9 +97,9 @@ namespace Hubtel.eCommerce.Cart.Api.Service
 
         public async Task DeleteAsync(string indexName, Guid id, CancellationToken cancellationToken)
         {
-
            await _elasticClient.DeleteAsync(new DeleteRequest(indexName, id), cancellationToken);
         }
+
 
     }
 }
