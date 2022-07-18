@@ -5,9 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Infrastructure\Helpers\AppSettings.cs" />
-    <Compile Remove="Infrastructure\Helpers\AuthorizeAttribute.cs" />
-    <Compile Remove="Infrastructure\Helpers\JwtMiddleWare.cs" />
     <Compile Remove="Infrastructure\Persistence\Interfaces\IAccountService.cs" />
     <Compile Remove="Infrastructure\Persistence\Repositories\AccountService.cs" />
   </ItemGroup>

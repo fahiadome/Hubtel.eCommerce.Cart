@@ -36,11 +36,11 @@ namespace Hubtel.eCommerce.Cart.Api.Core.Processors
             return cartItem;
 
         }
-        public async Task<CartViewModel> GetAllCartByUserIdAndItemId(Guid itemId)
+        public async Task<CartViewModel> GetAllUserCartById(Guid itemId)
         {
             var user = GetUserInfoFromToken();
 
-            var cart = await _cartRepository.GetCartByUserIdAndItemIdAsync(user.Id, itemId);
+            var cart = await _cartRepository.GetAllUserCartByIdAsync(user.Id, itemId);
 
             var data = _mapper.Map<CartViewModel>(cart);
 
@@ -72,7 +72,7 @@ namespace Hubtel.eCommerce.Cart.Api.Core.Processors
                 var user = GetUserInfoFromToken();
 
                 var cart = BuildCartModelFromCommand(model);
-                var cartItem = await _cartRepository.GetCartByUserIdAndItemIdAsync(user.Id, model.ItemId);
+                var cartItem = await _cartRepository.GetAllUserCartByIdAsync(user.Id, model.ItemId);
 
                 var item = await _itemRepository.GetAsync(model.ItemId);
                 var esCart = BuildEsCartModelFromCommand(model, user.PhoneNumber, item.ItemName);

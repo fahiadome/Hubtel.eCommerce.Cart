@@ -64,7 +64,7 @@ namespace Hubtel.eCommerce.Cart.Api.Core.Application.Features.Cart.Queries
 
             public async Task<CartViewModel> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _cartProcessor.GetAllCartByUserIdAndItemId(request.ItemId);
+                return await _cartProcessor.GetAllUserCartById(request.ItemId);
             }
         }
 

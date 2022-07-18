@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Hubtel.eCommerce.Cart.Api.Infrastructure.Helpers;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Models;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Interfaces;
 using Hubtel.eCommerce.Cart.Api.Service;
-using Hubtel.eCommerce.Cart.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Nest;
 
 namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
 {
@@ -36,7 +32,7 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
 
         }
 
-        public async Task<Cart> GetCartByUserIdAndItemIdAsync(Guid userId, Guid itemId)
+        public async Task<Cart> GetAllUserCartByIdAsync(Guid userId, Guid itemId)
         {
             try
             {

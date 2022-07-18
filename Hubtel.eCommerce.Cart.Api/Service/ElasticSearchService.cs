@@ -72,7 +72,7 @@ namespace Hubtel.eCommerce.Cart.Api.Service
                 query.Add(timeRange);
                 query.Add(quantityRange);
 
-                var request = new SearchRequest<Cart>("cart")
+                var request = new SearchRequest<CartViewModel>("cart")
                 {
                     Query = new BoolQuery { Must = query }
                 };
@@ -97,16 +97,19 @@ namespace Hubtel.eCommerce.Cart.Api.Service
 
         public async Task DeleteAsync(string indexName, Guid id, CancellationToken cancellationToken)
         {
+            //await _elasticClient.DeleteByQueryAsync<Cart>(q => q
+            //    .Query(rq => rq
+            //        .Match(m => m
+            //            .Field(f => f.Id)
+            //            .Query(id.ToString()))
+            //    )
+            //    .Index(indexName), cancellationToken
+            //);
 
-            var response = await _elasticClient.DeleteByQueryAsync<CartViewModel>(q => q
-                .Query(rq => rq
-                    .Match(m => m
-                        .Field(f => f.Id)
-                        .Query(id.ToString()))
-                )
-                .Index(indexName), cancellationToken
-            );
+            //await _elasticClient.Indices.DeleteAsync(indexName);
 
+           await _elasticClient.DeleteAsync(new DeleteRequest(indexName, id));
         }
-	}
+
+    }
 }
