@@ -1794,20 +1794,6 @@
           "lib/netstandard1.3/Serilog.Sinks.File.dll": {}
         }
       },
-      "Sieve/2.5.5": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CSharp": "4.4.1",
-          "Microsoft.Extensions.Options": "2.0.0",
-          "System.ComponentModel.Annotations": "4.4.1"
-        },
-        "compile": {
-          "lib/netstandard2.1/Sieve.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/Sieve.dll": {}
-        }
-      },
       "Swashbuckle.AspNetCore/6.3.1": {
         "type": "package",
         "dependencies": {
@@ -5975,19 +5961,6 @@
         "lib/netstandard1.3/Serilog.Sinks.File.xml",
         "serilog.sinks.file.4.0.0.nupkg.sha512",
         "serilog.sinks.file.nuspec"
-      ]
-    },
-    "Sieve/2.5.5": {
-      "sha512": "JNT/m73vu7lzUfi+DNGVRptWYDJTRhS7BgVwqcvlEq5sAhrMmiFZJxM3LPagjsJbcuscMrmMfLgLvhyDNGv/Bg==",
-      "type": "package",
-      "path": "sieve/2.5.5",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.1/Sieve.dll",
-        "lib/netstandard2.1/Sieve.pdb",
-        "sieve.2.5.5.nupkg.sha512",
-        "sieve.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.3.1": {
@@ -10401,7 +10374,6 @@
       "Serilog >= 2.11.0",
       "Serilog.AspNetCore >= 3.1.0",
       "Serilog.Extensions.Logging >= 3.1.0",
-      "Sieve >= 2.5.5",
       "Swashbuckle.AspNetCore >= 6.3.1",
       "Swashbuckle.AspNetCore.Swagger >= 6.3.1",
       "Swashbuckle.AspNetCore.SwaggerUI >= 6.3.1",
@@ -10554,10 +10526,6 @@
           "Serilog.Extensions.Logging": {
             "target": "Package",
             "version": "[3.1.0, )"
-          },
-          "Sieve": {
-            "target": "Package",
-            "version": "[2.5.5, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

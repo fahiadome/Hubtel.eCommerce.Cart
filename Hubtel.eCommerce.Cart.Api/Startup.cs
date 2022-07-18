@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Hubtel.eCommerce.Cart.Api.Infrastructure.Models;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence;
+using Hubtel.eCommerce.Cart.Api.Service;
 using Hubtel.eCommerce.Cart.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,7 +14,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Nest;
-using Sieve.Services;
 
 namespace Hubtel.eCommerce.Cart.Api
 {
@@ -60,8 +53,9 @@ namespace Hubtel.eCommerce.Cart.Api
                     };
                 });
 
-            var settings = new ConnectionSettings()
-                .DefaultMappingFor<CartViewModel>(a=>a.IndexName("CartViewModel"));
+            var node = new Uri("http://localhost:9200/");
+            var settings = new ConnectionSettings(node)
+                .DefaultMappingFor<Cart>(a => a.IndexName("cart"));
 
             services.AddSingleton<IElasticClient>(new ElasticClient(settings));
 
@@ -69,6 +63,8 @@ namespace Hubtel.eCommerce.Cart.Api
             services.AddRepository();
             services.AddProcessors();
             services.AddCors();
+
+            services.AddSingleton<ElasticSearchService>();
 
             services.AddMediatR(typeof(Startup));
 

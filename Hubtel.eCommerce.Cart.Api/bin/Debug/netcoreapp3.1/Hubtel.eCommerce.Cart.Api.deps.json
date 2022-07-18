@@ -54,7 +54,6 @@
           "Serilog": "2.11.0",
           "Serilog.AspNetCore": "3.1.0",
           "Serilog.Extensions.Logging": "3.1.0",
-          "Sieve": "2.5.5",
           "Swashbuckle.AspNetCore": "6.3.1",
           "Swashbuckle.AspNetCore.Swagger": "6.3.1",
           "Swashbuckle.AspNetCore.SwaggerUI": "6.3.1",
@@ -1766,22 +1765,6 @@
         },
         "compile": {
           "lib/netstandard1.3/Serilog.Sinks.File.dll": {}
-        }
-      },
-      "Sieve/2.5.5": {
-        "dependencies": {
-          "Microsoft.CSharp": "4.7.0",
-          "Microsoft.Extensions.Options": "6.0.0",
-          "System.ComponentModel.Annotations": "4.7.0"
-        },
-        "runtime": {
-          "lib/netstandard2.1/Sieve.dll": {
-            "assemblyVersion": "2.5.5.0",
-            "fileVersion": "2.5.5.0"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.1/Sieve.dll": {}
         }
       },
       "Swashbuckle.AspNetCore/6.3.1": {
@@ -5331,13 +5314,6 @@
       "sha512": "sha512-vBj43RkAbeP1dzoPFR2+LfV5GevDRPDq6265JJBv223lMvT9rfdwe/S/I9ow7aZSLYKfw4qPDw6NW8YwjbDbvg==",
       "path": "serilog.sinks.file/4.0.0",
       "hashPath": "serilog.sinks.file.4.0.0.nupkg.sha512"
-    },
-    "Sieve/2.5.5": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-JNT/m73vu7lzUfi+DNGVRptWYDJTRhS7BgVwqcvlEq5sAhrMmiFZJxM3LPagjsJbcuscMrmMfLgLvhyDNGv/Bg==",
-      "path": "sieve/2.5.5",
-      "hashPath": "sieve.2.5.5.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.3.1": {
       "type": "package",

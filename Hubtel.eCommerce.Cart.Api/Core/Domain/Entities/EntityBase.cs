@@ -15,14 +15,14 @@ namespace Hubtel.eCommerce.Cart.Domain.Entities
         public string ModifiedBy { get; set; }
 
 
-        public void WithAddDateAndUser(DateTime date, Guid userId)
+        public void WithAddDateAndUser( Guid userId)
         {
-            AddedDate = date;
+            AddedDate = DateTime.Now;
             AddedBy = userId.ToString();
         }
-        public void WithModifiedDateAndUser(DateTime date, Guid userId)
+        public void WithModifiedDateAndUser(Guid userId)
         {
-            DateModified = date;
+            DateModified = DateTime.Now;
             ModifiedBy = userId.ToString();
         }
 

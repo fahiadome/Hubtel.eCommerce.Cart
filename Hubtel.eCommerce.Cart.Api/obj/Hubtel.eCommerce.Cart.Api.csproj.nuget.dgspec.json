@@ -145,10 +145,6 @@
               "target": "Package",
               "version": "[3.1.0, )"
             },
-            "Sieve": {
-              "target": "Package",
-              "version": "[2.5.5, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.3.1, )"

@@ -25,7 +25,7 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddMediatR(typeof(Startup));
+            //services.AddMediatR(typeof(Startup));
 
             return services;
 		}

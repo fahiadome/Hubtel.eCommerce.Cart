@@ -23,7 +23,7 @@ namespace Hubtel.eCommerce.Cart
         [Column(TypeName = "decimal(18,4)"), Required]
         public decimal UnitPrice { get; set; }
 
-        public string ItemName { get; set; }
+        //public string ItemName { get; set; }
 
         public decimal Amount => Quantity * UnitPrice;
 
@@ -38,6 +38,11 @@ namespace Hubtel.eCommerce.Cart
         {
             CustomerId = customerId;
         }
+        public void WithId(Guid id)
+        {
+            Id = id;
+        }
+
 
 
     }

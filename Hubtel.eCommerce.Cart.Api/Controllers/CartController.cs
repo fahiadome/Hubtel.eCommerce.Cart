@@ -1,23 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Hubtel.eCommerce.Cart.Api.Core.Application.Features.Cart.Commands;
 using Hubtel.eCommerce.Cart.Api.Core.Application.Features.Cart.Queries;
-using Hubtel.eCommerce.Cart.Api.Infrastructure.Helpers;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Models;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Interfaces;
-using Hubtel.eCommerce.Cart.Domain.Entities;
+using Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Nest;
 
 namespace Hubtel.eCommerce.Cart.Api.Controllers
 {
@@ -41,7 +33,7 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Add([FromBody] AddCart.Command command)
         {
-            _mediator.Send(command);
+           await _mediator.Send(command);
 
             return NoContent();
         }
@@ -49,15 +41,21 @@ namespace Hubtel.eCommerce.Cart.Api.Controllers
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<List<CartViewModel>> Get()
+        public async Task<IReadOnlyCollection<CartViewModel>> GetAll([FromQuery] QueryTerm queryTerm)
         {
-             var userId = new Guid("d67e5380-a832-4f3d-ad42-5cba564f7ad8");
 
-            return await _mediator.Send(new GetCartById.Query(userId));
+            return await _mediator.Send(new GetCartById.Query(queryTerm));
 
-            // var result = await _cartRepository.GetCartByUserIdAsync(userId);
+        }
 
-            //return Ok(result);
+        [HttpGet("itemId")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<CartViewModel> GetById(Guid itemId)
+        {
+
+            return await _mediator.Send(new GetCartByItemId.Query(itemId));
+
         }
 
 

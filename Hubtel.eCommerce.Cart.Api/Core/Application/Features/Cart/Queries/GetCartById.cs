@@ -4,8 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using Hubtel.eCommerce.Cart.Api.Core.Processors;
-using Hubtel.eCommerce.Cart.Api.Infrastructure.Helpers;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Models;
+using Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories;
 using MediatR;
 
 namespace Hubtel.eCommerce.Cart.Api.Core.Application.Features.Cart.Queries
@@ -14,17 +14,17 @@ namespace Hubtel.eCommerce.Cart.Api.Core.Application.Features.Cart.Queries
 
     public static class GetCartById
     {
-        public class Query : IRequest<List<CartViewModel>>
+        public class Query : IRequest<IReadOnlyCollection<CartViewModel>>
         {
-            public Query(Guid userId)
+            public Query(QueryTerm queryTerm)
             {
-                UserId = userId;
+                QueryTerm = queryTerm;
             }
 
-            public Guid UserId { get; }
+            public QueryTerm QueryTerm  { get; }
         }
 
-        public class Handler : IRequestHandler<Query, List<CartViewModel>>
+        public class Handler : IRequestHandler<Query, IReadOnlyCollection<CartViewModel>>
         {
             private readonly CartProcessor _cartProcessor;
 
@@ -33,9 +33,38 @@ namespace Hubtel.eCommerce.Cart.Api.Core.Application.Features.Cart.Queries
                 _cartProcessor = cartProcessor;
             }
 
-            public async Task<List<CartViewModel>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<IReadOnlyCollection<CartViewModel>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _cartProcessor.GetAllCartByUserId(request.UserId);
+                return await _cartProcessor.GetAllCartByUserId(request.QueryTerm);
+            }
+        }
+
+    }
+
+    public static class GetCartByItemId
+    {
+        public class Query : IRequest<CartViewModel>
+        {
+            public Query(Guid itemId)
+            {
+                ItemId = itemId;
+            }
+
+            public Guid ItemId { get; }
+        }
+
+        public class Handler : IRequestHandler<Query, CartViewModel>
+        {
+            private readonly CartProcessor _cartProcessor;
+
+            public Handler(CartProcessor cartProcessor)
+            {
+                _cartProcessor = cartProcessor;
+            }
+
+            public async Task<CartViewModel> Handle(Query request, CancellationToken cancellationToken)
+            {
+                return await _cartProcessor.GetAllCartByUserIdAndItemId(request.ItemId);
             }
         }
 
@@ -43,8 +72,9 @@ namespace Hubtel.eCommerce.Cart.Api.Core.Application.Features.Cart.Queries
         {
             public Validator()
             {
-                RuleFor(value => value.UserId).NotNull();
+                RuleFor(value => value.ItemId).NotNull();
             }
         }
     }
+
 }

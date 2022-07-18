@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Helpers;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Models;
 using Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Interfaces;
+using Hubtel.eCommerce.Cart.Api.Service;
 using Hubtel.eCommerce.Cart.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,51 +17,22 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
     {
         private readonly ILogger<Cart> _logger;
         private readonly ECommerceDbContext _context;
-        private readonly IElasticClient _elasticClient;
+        private readonly ElasticSearchService _elasticClient;
 
-        public CartRepository(ILogger<Cart> logger, ECommerceDbContext context, IElasticClient elasticClient) : base(context)
+        public CartRepository(ILogger<Cart> logger, ECommerceDbContext context, ElasticSearchService elasticClient) : base(context)
         {
             _logger = logger;
             _context = context;
             _elasticClient = elasticClient;
         }
 
-        public async Task<List<CartViewModel>> GetCartByUserIdAsync(Guid userId)
+        public async Task<IReadOnlyCollection<CartViewModel>> GetCartByUserIdAsync(QueryTerm queryTerm)
         {
-            var dataToReturn = new List<CartViewModel>();
 
-            var data = (from c in _context.Carts
-                    .Include(a=>a.Item)
-                    .Include(a=>a.Customer)
-                    .ThenInclude(a=>a.Addresses)
-                where c.Customer.UserId == userId
-                    select c);
+          var cart = await _elasticClient.GetCartBySearchTerm(queryTerm.PhoneNumber, queryTerm.ItemName, queryTerm.Quantity,
+                queryTerm.Time);
 
-            foreach (var cart in data)
-            {
-                var cartViewModel = new CartViewModel()
-                {
-                    CartId = cart.Id,
-                    ItemId = cart.ItemId,
-                    ItemName = cart.Item?.ItemName ?? "",
-                    Quantity = cart.Quantity,
-                    UnitPrice = cart.UnitPrice,
-                    PhoneNumber = cart?.Customer?.Addresses?.First()?.PhoneNumber ?? "",
-                    DateAdded = cart.AddedDate
-                };
-
-                dataToReturn.Add(cartViewModel);
-            }
-
-
-            //var response = await _elasticClient.GetAsync<Cart>(new DocumentPath<Cart>(
-            //    new Id(userId)), x => x.Index("carts"));
-
-            //return response?.Source;  
-                
-            //    )
-
-            return await Task.FromResult(dataToReturn);
+          return cart;
 
         }
 
@@ -68,11 +40,7 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
         {
             try
             {
-                var data = _context.Carts
-                        .FirstOrDefaultAsync(a => a.Customer.UserId == userId && a.ItemId == itemId);
-
-                return await data;
-
+                return await _context.Carts.FirstOrDefaultAsync(a => a.ItemId == itemId && a.Customer.UserId == userId);
             }
             catch (Exception e)
             {
@@ -80,6 +48,15 @@ namespace Hubtel.eCommerce.Cart.Api.Infrastructure.Persistence.Repositories
                 throw;
             }
         }
+
+    }
+
+    public class QueryTerm
+    {
+        public string ItemName { get; set; }
+        public string PhoneNumber { get; set; }
+        public int Quantity { get; set; }
+        public DateTime Time { get; set; }
 
     }
 }
